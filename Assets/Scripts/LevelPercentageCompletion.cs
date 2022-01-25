@@ -5,8 +5,9 @@ using UnityEngine;
 public class LevelPercentageCompletion : MonoBehaviour
 {
     List<ChangeColorOnTrigger> colorsOnTriggerAvailable;
-    
 
+    [SerializeField]
+    CorpsoToLevelsTransition ctlt;
 
     void Start()
     {
@@ -27,7 +28,7 @@ public class LevelPercentageCompletion : MonoBehaviour
         colorsOnTriggerAvailable.Remove(colorOnTrigger);
         if (colorsOnTriggerAvailable.Count < 1)
         {
-            Debug.Log("Win@");
+            ctlt.LoadCorpso();
         }
     }
 }
