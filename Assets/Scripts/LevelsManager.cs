@@ -13,8 +13,8 @@ public class LevelsManager : MonoBehaviour
     public GameObject objectToPool;
     int objectsAmount;
 
-    const int LEVEL_HEIGHT = 7;
-    const int LEVEL_WIDTH = 14;
+    const int LEVEL_HEIGHT = 38;
+    const int LEVEL_WIDTH = 32;
 
     private void Awake()
     {
