@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerControlling : MonoBehaviour
 {
+    [Range(0.0001f, 0.1f)]
+    public float bumpForce = 0.01f;
     public float speedMultiplier;
 
     bool canMove = true;
@@ -36,9 +38,9 @@ public class PlayerControlling : MonoBehaviour
 
     void MovePlayer(Vector2 direction)
     {
-        if (canMove)
-        {
-            canMove = false;
+        //if (canMove)
+        //{
+            //canMove = false;
             //rb.AddForce(GetMaxDirection(direction) * speedMultiplier);
             
 #if UNITY_ANDROID
@@ -51,9 +53,10 @@ public class PlayerControlling : MonoBehaviour
             rb.AddForce((GetMaxDirection(direction)) * speedMultiplier);
 #endif
             
-        }
+        //}
     }
 
+    /*
     private void Update()
     {
         Debug.Log(canMove);
@@ -63,7 +66,7 @@ public class PlayerControlling : MonoBehaviour
             
         }
         else canMove = false;
-    }
+    }*/
 
     Vector2 GetMaxDirection(Vector2 gotDirection)
     {
@@ -81,22 +84,23 @@ public class PlayerControlling : MonoBehaviour
     {
         if (collision.otherCollider.gameObject.transform.position.x > transform.position.x)
         {
-            transform.position = new Vector3(transform.position.x - 0.001f, transform.position.y);
+
+            transform.position = new Vector3(transform.position.x - bumpForce, transform.position.y);
 
         }
         if (collision.otherCollider.gameObject.transform.position.x < transform.position.x)
         {
-            transform.position = new Vector3(transform.position.x + 0.001f, transform.position.y);
+            transform.position = new Vector3(transform.position.x + bumpForce, transform.position.y);
 
         }
         if (collision.otherCollider.gameObject.transform.position.y > transform.position.y)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y - 0.001f);
+            transform.position = new Vector3(transform.position.x, transform.position.y - bumpForce);
 
         }
         if (collision.otherCollider.gameObject.transform.position.y < transform.position.y)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + 0.001f);
+            transform.position = new Vector3(transform.position.x, transform.position.y + bumpForce);
 
         }
     }

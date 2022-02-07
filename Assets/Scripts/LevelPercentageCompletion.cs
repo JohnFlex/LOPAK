@@ -28,6 +28,7 @@ public class LevelPercentageCompletion : MonoBehaviour
         colorsOnTriggerAvailable.Remove(colorOnTrigger);
         if (colorsOnTriggerAvailable.Count < 1)
         {
+            LevelsManager.LEVELS_MANAGER_INSTANCE.UnloadLevel();
             ctlt.LoadCorpso();
         }
     }

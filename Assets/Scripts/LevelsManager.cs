@@ -47,7 +47,7 @@ public class LevelsManager : MonoBehaviour
                 
                 poolOfObjects[k].SetActive(true);
                 poolOfObjects[k].transform.position = new Vector3(j,-i);
-                poolOfObjects[k].GetComponent<SpriteRenderer>().color = levelAsEncoded[k] == '0' ? Color.black : Color.blue;
+                poolOfObjects[k].GetComponent<SpriteRenderer>().color = levelAsEncoded[k] == '0' ? Color.black : Color.red;
                 if (levelAsEncoded[k] == '1')
                 {
                     poolOfObjects[k].GetComponent<ChangeColorOnTrigger>().passStatus = ChangeColorOnTrigger.PassStatus.available;
@@ -55,6 +55,16 @@ public class LevelsManager : MonoBehaviour
                 }
                 k++;
             }
+        }
+    }
+
+    public void UnloadLevel()
+    {
+        foreach (GameObject item in poolOfObjects)
+        {
+            GetComponent<ChangeColorOnTrigger>().passStatus = ChangeColorOnTrigger.PassStatus.solid;
+            item.GetComponent<SpriteRenderer>().color = Color.black;
+            item.SetActive(false);
         }
     }
 
