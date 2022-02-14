@@ -24,7 +24,7 @@ public class ChangeColorOnTrigger : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && passStatus == PassStatus.available)
         {
             passStatus = PassStatus.passed;
-            rdr.color = Color.green;
+            rdr.color = Color.yellow;
             lpc.UpdateHolder(this);
         }
     }

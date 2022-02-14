@@ -58,6 +58,16 @@ public class LevelsManager : MonoBehaviour
         }
     }
 
+    public void UnloadLevel()
+    {
+        foreach (GameObject item in poolOfObjects)
+        {
+            GetComponent<ChangeColorOnTrigger>().passStatus = ChangeColorOnTrigger.PassStatus.solid;
+            item.GetComponent<SpriteRenderer>().color = Color.black;
+            item.SetActive(false);
+        }
+    }
+
     
 
     public static string RemoveSpecialCharacters(string str)
