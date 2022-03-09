@@ -18,6 +18,8 @@ public class ChangeColorOnTrigger : MonoBehaviour
     public TileBase sprite;
     public TileBase roadSprite;
 
+    public GameObject levelManager;
+
 
 
 
@@ -32,55 +34,14 @@ public class ChangeColorOnTrigger : MonoBehaviour
         Debug.Log(collision);
     }
 
-/*    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log(collision);
-
-        if (collision.gameObject.name == gameMap.gameObject.name)
-        {
-            BoundsInt tilemapBounds = gameMap.cellBounds;
-            for (int x = 0; x < tilemapBounds.size.x; x++)
-            {
-                for (int y = 0; y < tilemapBounds.size.y; y++)
-                {
-                    UnityEngine.Tilemaps.Tile t = gameMap.GetTile<UnityEngine.Tilemaps.Tile>(new Vector3Int(x, y, 0));
-                    if (t != null)
-                    {
-                        Debug.Log(t.name + ", " + t.colliderType);
-                    }
-                }
-            }
-        }
-    }*/
-
     private void Update()
     {
-        //Debug.Log(gameMap.WorldToCell(transform.position));
-        //Debug.Log(grid.WorldToCell(transform.position));
-
-        
         Vector3Int mapPosition = grid.WorldToCell(transform.position);
-
-
-        /*for (int i = -1; i<=1; i++)
-        {
-            for (int j = -1; j<=1; j++)
-            {
-                Vector3Int currentPosition = new Vector3Int(mapPosition.x + i, mapPosition.y + j, 0);
-                if (gameMap.GetTile(currentPosition) == roadSprite)
-                {
-                    gameMap.SetTile(currentPosition, sprite);
-                }
-            }
-        }*/
 
         if (gameMap.GetTile(mapPosition) == roadSprite)
         {
             gameMap.SetTile(mapPosition, sprite);
+            levelManager.GetComponent<LevelsManager>().nbOfTiles--;
         }
-
-
-        //gameMap.SetColor(mapPosition, Color.yellow);
-        //gameMap.GetTile(mapPosition).
     }
 }

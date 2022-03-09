@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class LevelsManager : MonoBehaviour
 {
@@ -24,25 +25,26 @@ public class LevelsManager : MonoBehaviour
 
     public TileBase transparentSprite;
 
+    public int nbOfTiles = 0;
+    private bool isGenerated = false;
+
+    [SerializeField]
+    CorpsoToLevelsTransition ctlt;
+
     private void Awake()
     {
         LEVELS_MANAGER_INSTANCE = this;
 
-        //objectsAmount = LEVEL_WIDTH * LEVEL_HEIGHT;
 
-        //poolOfObjects = new List<GameObject>();
+    }
 
-        //GameObject tmp;
-        //for (int i = 0; i < objectsAmount; i++)
-        //{
-        //    tmp = Instantiate(objectToPool);
-        //    tmp.SetActive(false);
-        //    poolOfObjects.Add(tmp);
-        //}
-        //GenerateLevel(0);
-
-        //sprite1
-
+    private void Update()
+    {
+        if (nbOfTiles <= 0 && isGenerated)
+        {
+            LEVELS_MANAGER_INSTANCE.UnloadLevel();
+            ctlt.LoadCorpso();
+        }
     }
 
     public void GenerateLevel(int levelIndex)
@@ -55,15 +57,6 @@ public class LevelsManager : MonoBehaviour
         {
             for (int j = 0; j < LEVEL_WIDTH ; j++)
             {
-
-                //poolOfObjects[k].SetActive(true);
-                //poolOfObjects[k].transform.position = new Vector3(j,-i);
-                //poolOfObjects[k].GetComponent<SpriteRenderer>().color = levelAsEncoded[k] == '0' ? Color.black : Color.red;
-                //{
-                //    poolOfObjects[k].GetComponent<ChangeColorOnTrigger>().passStatus = ChangeColorOnTrigger.PassStatus.available;
-                //    poolOfObjects[k].GetComponent<Collider2D>().isTrigger = true;
-                //}
-
                 Vector3Int position = new Vector3Int(-j, i, 0);
                 if (levelAsEncoded[k] == '0')
                 {
@@ -77,6 +70,7 @@ public class LevelsManager : MonoBehaviour
                     if (levelAsEncoded[k] == '1')
                     {
                         gameMap2.SetTile(position, sprite2);
+                        nbOfTiles++;
                         
                     }
                 }
@@ -84,6 +78,7 @@ public class LevelsManager : MonoBehaviour
                 k--;
             }
         }
+        isGenerated = true;
 
         gameMap1.RefreshAllTiles();
         gameMap2.RefreshAllTiles();
