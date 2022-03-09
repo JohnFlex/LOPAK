@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class LevelsManager : MonoBehaviour
 {
@@ -16,46 +16,77 @@ public class LevelsManager : MonoBehaviour
     const int LEVEL_HEIGHT = 38;
     const int LEVEL_WIDTH = 32;
 
+    public Tilemap gameMap1;
+    public TileBase sprite1;
+
+    public Tilemap gameMap2;
+    public TileBase sprite2;
+
+    public TileBase transparentSprite;
+
     private void Awake()
     {
         LEVELS_MANAGER_INSTANCE = this;
 
-        objectsAmount = LEVEL_WIDTH * LEVEL_HEIGHT;
+        //objectsAmount = LEVEL_WIDTH * LEVEL_HEIGHT;
 
-        poolOfObjects = new List<GameObject>();
+        //poolOfObjects = new List<GameObject>();
 
-        GameObject tmp;
-        for (int i = 0; i < objectsAmount; i++)
-        {
-            tmp = Instantiate(objectToPool);
-            tmp.SetActive(false);
-            poolOfObjects.Add(tmp);
-        }
-        GenerateLevel(0);
+        //GameObject tmp;
+        //for (int i = 0; i < objectsAmount; i++)
+        //{
+        //    tmp = Instantiate(objectToPool);
+        //    tmp.SetActive(false);
+        //    poolOfObjects.Add(tmp);
+        //}
+        //GenerateLevel(0);
+
+        //sprite1
 
     }
 
     public void GenerateLevel(int levelIndex)
     {
-        Debug.Log(objectsAmount);
+        gameMap1.ClearAllTiles();
+        gameMap2.ClearAllTiles();
         string levelAsEncoded = RemoveSpecialCharacters(levelsAsEncoded[levelIndex]) ;
-        int k = 0;
+        int k = LEVEL_HEIGHT * LEVEL_WIDTH - 1;
         for (int i = 0; i < LEVEL_HEIGHT; i++)
         {
             for (int j = 0; j < LEVEL_WIDTH ; j++)
             {
-                
-                poolOfObjects[k].SetActive(true);
-                poolOfObjects[k].transform.position = new Vector3(j,-i);
-                poolOfObjects[k].GetComponent<SpriteRenderer>().color = levelAsEncoded[k] == '0' ? Color.black : Color.red;
-                if (levelAsEncoded[k] == '1')
+
+                //poolOfObjects[k].SetActive(true);
+                //poolOfObjects[k].transform.position = new Vector3(j,-i);
+                //poolOfObjects[k].GetComponent<SpriteRenderer>().color = levelAsEncoded[k] == '0' ? Color.black : Color.red;
+                //{
+                //    poolOfObjects[k].GetComponent<ChangeColorOnTrigger>().passStatus = ChangeColorOnTrigger.PassStatus.available;
+                //    poolOfObjects[k].GetComponent<Collider2D>().isTrigger = true;
+                //}
+
+                Vector3Int position = new Vector3Int(-j, i, 0);
+                if (levelAsEncoded[k] == '0')
                 {
-                    poolOfObjects[k].GetComponent<ChangeColorOnTrigger>().passStatus = ChangeColorOnTrigger.PassStatus.available;
-                    poolOfObjects[k].GetComponent<Collider2D>().isTrigger = true;
+                    
+                    gameMap1.SetTile(position, sprite1);
+                    
+                    
                 }
-                k++;
+                else
+                {
+                    if (levelAsEncoded[k] == '1')
+                    {
+                        gameMap2.SetTile(position, sprite2);
+                        
+                    }
+                }
+                
+                k--;
             }
         }
+
+        gameMap1.RefreshAllTiles();
+        gameMap2.RefreshAllTiles();
     }
 
     public void UnloadLevel()

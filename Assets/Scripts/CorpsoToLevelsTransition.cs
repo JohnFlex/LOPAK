@@ -21,7 +21,9 @@ public class CorpsoToLevelsTransition : MonoBehaviour
         gameManager.GetComponent<LevelsManager>().GenerateLevel(levelID);
         corpsoCanvas.SetActive(false);
         cam.transform.SetParent(GameObject.FindGameObjectWithTag("Player").transform);
+        cam.transform.position =cam.transform.parent.position;
         FadeOut.FADE_OUT_ELEMENT.FadeFromBlack(1f);
+        cam.transform.localPosition = new Vector3(0, 0, -10);
     }
 
     public void LoadCorpso()
