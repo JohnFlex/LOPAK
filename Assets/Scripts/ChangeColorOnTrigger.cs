@@ -29,11 +29,6 @@ public class ChangeColorOnTrigger : MonoBehaviour
         //rdr = GetComponent<SpriteRenderer>();
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        Debug.Log(collision);
-    }
-
     private void Update()
     {
         Vector3Int mapPosition = grid.WorldToCell(transform.position);
