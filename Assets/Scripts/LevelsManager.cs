@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LevelsManager : MonoBehaviour
 {
@@ -30,6 +31,9 @@ public class LevelsManager : MonoBehaviour
     [SerializeField]
     CorpsoToLevelsTransition ctlt;
 
+    private float timeRemaining = 140;
+    public TextMeshProUGUI timeText;
+
     private void Awake()
     {
         LEVELS_MANAGER_INSTANCE = this;
@@ -39,16 +43,24 @@ public class LevelsManager : MonoBehaviour
 
     private void Update()
     {
-        if (nbOfTiles <= 0 && isGenerated)
+        //TIMER
+        timeRemaining -= Time.deltaTime;
+        timeText.SetText("Time : " + System.Math.Round(timeRemaining, 0));
+
+        if ((nbOfTiles <= 0 || timeRemaining <= 0) && isGenerated)
         {
             LEVELS_MANAGER_INSTANCE.UnloadLevel();
             ctlt.LoadCorpso();
+
+            
         }
     }
 
     public void GenerateLevel(int levelIndex)
     {
         nbOfTiles = 0;
+        timeRemaining = 140;
+
         gameMap1.ClearAllTiles();
         gameMap2.ClearAllTiles();
         string levelAsEncoded = RemoveSpecialCharacters(levelsAsEncoded[levelIndex]) ;
@@ -86,12 +98,15 @@ public class LevelsManager : MonoBehaviour
 
     public void UnloadLevel()
     {
-        foreach (GameObject item in poolOfObjects)
+       /* foreach (GameObject item in poolOfObjects)
         {
-            GetComponent<ChangeColorOnTrigger>().passStatus = ChangeColorOnTrigger.PassStatus.solid;
+            *//*GetComponent<ChangeColorOnTrigger>().passStatus = ChangeColorOnTrigger.PassStatus.solid;
             item.GetComponent<SpriteRenderer>().color = Color.black;
-            item.SetActive(false);
-        }
+            item.SetActive(false);*//*
+        }*/
+
+
+        ctlt.LoadCorpso();
     }
 
     
