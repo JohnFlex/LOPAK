@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using TMPro;
 
 public class ChangeColorOnTrigger : MonoBehaviour
 {
@@ -19,8 +20,7 @@ public class ChangeColorOnTrigger : MonoBehaviour
     public TileBase roadSprite;
 
     public GameObject levelManager;
-
-
+    public TextMeshProUGUI ScoreText;
 
 
     private void Start()
@@ -37,6 +37,11 @@ public class ChangeColorOnTrigger : MonoBehaviour
         {
             gameMap.SetTile(mapPosition, sprite);
             levelManager.GetComponent<LevelsManager>().nbOfTiles--;
+            float nbTiles = levelManager.GetComponent<LevelsManager>().nbOfTiles;
+            float total = levelManager.GetComponent<LevelsManager>().totalTiles;
+            float percentageTiles = ((total - nbTiles) / total) * 100;
+
+            ScoreText.SetText("Corruption : " + System.Math.Round(percentageTiles,0) + "%");
         }
     }
 }

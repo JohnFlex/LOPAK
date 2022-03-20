@@ -32,7 +32,6 @@ public class CorpsoToLevelsTransition : MonoBehaviour
         cam.transform.SetParent(null);
         gameManager.SetActive(false);
         corpsoCanvas.SetActive(true);
-        
         FadeOut.FADE_OUT_ELEMENT.FadeFromBlack(1f);
     }
     

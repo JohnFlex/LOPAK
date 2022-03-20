@@ -24,8 +24,8 @@ public class ParticleEffectOnCollision : MonoBehaviour
 
         storedVelocity = GetMaxDirection(storedVelocity);
 
-        Debug.Log(storedVelocity);
-        Debug.Log(storedVelocity.normalized);
+        /*Debug.Log(storedVelocity);
+        Debug.Log(storedVelocity.normalized);*/
 
 
 

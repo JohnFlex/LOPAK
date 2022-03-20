@@ -23,9 +23,8 @@ public class LevelsManager : MonoBehaviour
     public Tilemap gameMap2;
     public TileBase sprite2;
 
-    public TileBase transparentSprite;
-
     public int nbOfTiles = 0;
+    public int totalTiles;
     private bool isGenerated = false;
 
     [SerializeField]
@@ -49,6 +48,7 @@ public class LevelsManager : MonoBehaviour
 
     public void GenerateLevel(int levelIndex)
     {
+        nbOfTiles = 0;
         gameMap1.ClearAllTiles();
         gameMap2.ClearAllTiles();
         string levelAsEncoded = RemoveSpecialCharacters(levelsAsEncoded[levelIndex]) ;
@@ -79,9 +79,9 @@ public class LevelsManager : MonoBehaviour
             }
         }
         isGenerated = true;
-
         gameMap1.RefreshAllTiles();
         gameMap2.RefreshAllTiles();
+        totalTiles = nbOfTiles;
     }
 
     public void UnloadLevel()
