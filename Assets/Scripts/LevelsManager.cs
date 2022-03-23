@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections.Generic;
 
 public class LevelsManager : MonoBehaviour
 {
@@ -31,12 +32,21 @@ public class LevelsManager : MonoBehaviour
     [SerializeField]
     CorpsoToLevelsTransition ctlt;
 
-    private float timeRemaining = 140;
+    private float timeRemaining;
     public TextMeshProUGUI timeText;
+
+    private int[] scores = new int[6];
+    int levelNumber;
+    public GameObject player;
+    public List<TextMeshProUGUI> scoreTexts = new List<TextMeshProUGUI>();
 
     private void Awake()
     {
         LEVELS_MANAGER_INSTANCE = this;
+        for (int i = 0; i <6; i++)
+        {
+            scores[i] = 0;
+        }
 
 
     }
@@ -49,6 +59,12 @@ public class LevelsManager : MonoBehaviour
 
         if ((nbOfTiles <= 0 || timeRemaining <= 0) && isGenerated)
         {
+            int percentage = (int)System.Math.Round(player.GetComponent<ChangeColorOnTrigger>().percentageTiles);
+            if ( percentage > scores[levelNumber])
+            {
+                scores[levelNumber] = percentage;
+                scoreTexts[levelNumber].SetText(percentage + "%");
+            }
             LEVELS_MANAGER_INSTANCE.UnloadLevel();
             ctlt.LoadCorpso();
 
@@ -60,6 +76,7 @@ public class LevelsManager : MonoBehaviour
     {
         nbOfTiles = 0;
         timeRemaining = 140;
+        levelNumber = levelIndex;
 
         gameMap1.ClearAllTiles();
         gameMap2.ClearAllTiles();

@@ -22,6 +22,8 @@ public class ChangeColorOnTrigger : MonoBehaviour
     public GameObject levelManager;
     public TextMeshProUGUI ScoreText;
 
+    public float percentageTiles;
+
 
     private void Start()
     {
@@ -39,7 +41,7 @@ public class ChangeColorOnTrigger : MonoBehaviour
             levelManager.GetComponent<LevelsManager>().nbOfTiles--;
             float nbTiles = levelManager.GetComponent<LevelsManager>().nbOfTiles;
             float total = levelManager.GetComponent<LevelsManager>().totalTiles;
-            float percentageTiles = ((total - nbTiles) / total) * 100;
+            percentageTiles = ((total - nbTiles) / total) * 100;
 
             ScoreText.SetText("Corruption : " + System.Math.Round(percentageTiles,0) + "%");
         }
