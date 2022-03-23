@@ -4,6 +4,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class LevelsManager : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class LevelsManager : MonoBehaviour
     int levelNumber;
     public GameObject player;
     public List<TextMeshProUGUI> scoreTexts = new List<TextMeshProUGUI>();
+    public List<GameObject> levelArrows = new List<GameObject>();
 
     private void Awake()
     {
@@ -67,8 +69,33 @@ public class LevelsManager : MonoBehaviour
             }
             LEVELS_MANAGER_INSTANCE.UnloadLevel();
             ctlt.LoadCorpso();
+            if (percentage == 100)
+            {
+                levelArrows[levelNumber].GetComponent<Image>().color = new Color32(185, 75, 3, 255);
+            }
+            else
+            {
+                if (percentage > 90)
+                {
+                    levelArrows[levelNumber].GetComponent<Image>().color = new Color32(255, 255, 0, 255);
+                }
+                else
+                {
+                    if (percentage > 75)
+                    {
+                        levelArrows[levelNumber].GetComponent<Image>().color = new Color32(125, 255, 215, 255);
+                    }
+                    else
+                    {
+                        if (percentage > 50)
+                        {
+                            levelArrows[levelNumber].GetComponent<Image>().color = new Color32(185, 75, 3, 255);
+                        }
+                    }
+                }
+            }
 
-            
+
         }
     }
 
