@@ -30,7 +30,7 @@ public class ParticleEffectOnCollision : MonoBehaviour
 
 
         
-        particleSystem.transform.localPosition = (storedVelocity.normalized) * 1.9f;
+        particleSystem.transform.localPosition = (storedVelocity.normalized) * 0.5f;
 
         /*
         if (collision.contacts[collision.contactCount-1].point.x > transform.position.x)

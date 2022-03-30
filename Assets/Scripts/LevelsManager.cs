@@ -69,25 +69,25 @@ public class LevelsManager : MonoBehaviour
             }
             LEVELS_MANAGER_INSTANCE.UnloadLevel();
             ctlt.LoadCorpso();
-            if (percentage == 100)
+            if (percentage >= 90)
             {
-                levelArrows[levelNumber].GetComponent<Image>().color = new Color32(185, 75, 3, 255);
+                levelArrows[levelNumber].GetComponent<Image>().color = new Color32(0, 205, 255, 255);
             }
             else
             {
-                if (percentage >= 90)
+                if (percentage >= 75)
                 {
                     levelArrows[levelNumber].GetComponent<Image>().color = new Color32(255, 255, 0, 255);
                 }
                 else
                 {
-                    if (percentage >= 75)
+                    if (percentage >= 60)
                     {
                         levelArrows[levelNumber].GetComponent<Image>().color = new Color32(125, 255, 215, 255);
                     }
                     else
                     {
-                        if (percentage >= 50)
+                        if (percentage >= 35)
                         {
                             levelArrows[levelNumber].GetComponent<Image>().color = new Color32(185, 75, 3, 255);
                         }
