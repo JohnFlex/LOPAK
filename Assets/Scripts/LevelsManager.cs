@@ -59,35 +59,45 @@ public class LevelsManager : MonoBehaviour
         timeRemaining -= Time.deltaTime;
         timeText.SetText("Time : \n" + System.Math.Round(timeRemaining, 0));
 
+        //Conditions de fin de niveau (soit le joueur a complété le niveau, soit le temps est écoulé)
         if ((nbOfTiles <= 0 || timeRemaining <= 0) && isGenerated)
         {
+            //Cette variable calcule le pourcentage de cases remplies par le joueur
             int percentage = (int)System.Math.Round(player.GetComponent<ChangeColorOnTrigger>().percentageTiles);
+
+            //On regarde le score du joueur à la fin u niveau
+
+            //On regarde si le score du joueur est son meilleur score ou non
             if ( percentage > scores[levelNumber])
             {
                 scores[levelNumber] = percentage;
                 scoreTexts[levelNumber].SetText(percentage + "%");
             }
+
+            //On enlève le niveau et on fait apparaitre le menu
             LEVELS_MANAGER_INSTANCE.UnloadLevel();
             ctlt.LoadCorpso();
-            if (percentage >= 90)
+
+            //On change la couleur de la flèche menant vers le niveau qui vient d'etre fini en fonction du score du joueur
+            if (scores[levelNumber] >= 90)
             {
                 levelArrows[levelNumber].GetComponent<Image>().color = new Color32(0, 205, 255, 255);
             }
             else
             {
-                if (percentage >= 75)
+                if (scores[levelNumber] >= 75)
                 {
                     levelArrows[levelNumber].GetComponent<Image>().color = new Color32(255, 255, 0, 255);
                 }
                 else
                 {
-                    if (percentage >= 60)
+                    if (scores[levelNumber] >= 60)
                     {
                         levelArrows[levelNumber].GetComponent<Image>().color = new Color32(125, 255, 215, 255);
                     }
                     else
                     {
-                        if (percentage >= 35)
+                        if (scores[levelNumber] >= 35)
                         {
                             levelArrows[levelNumber].GetComponent<Image>().color = new Color32(185, 75, 3, 255);
                         }
@@ -99,15 +109,22 @@ public class LevelsManager : MonoBehaviour
         }
     }
 
+    //Fonction qui gènère le niveau
     public void GenerateLevel(int levelIndex)
     {
+        //On initialise les variables nécessaire au début du niveau
         nbOfTiles = 0;
         timeRemaining = 140;
         levelNumber = levelIndex;
 
+        //On nettoie la carte du jeu avant de la redessiner
         gameMap1.ClearAllTiles();
         gameMap2.ClearAllTiles();
+
+        //On transforme le plan du niveau en chaine de caractere
         string levelAsEncoded = RemoveSpecialCharacters(levelsAsEncoded[levelIndex]) ;
+
+        //On parcours chaque caractère de la chaine et on les interprète comme un type de case qu'on pose à l'endroit correspondant
         int k = LEVEL_HEIGHT * LEVEL_WIDTH - 1;
         for (int i = 0; i < LEVEL_HEIGHT; i++)
         {
@@ -134,9 +151,13 @@ public class LevelsManager : MonoBehaviour
                 k--;
             }
         }
+
+
         isGenerated = true;
         gameMap1.RefreshAllTiles();
         gameMap2.RefreshAllTiles();
+
+        //On définit le nombre total de case à compléter sur le nombre de case dans le niveau
         totalTiles = nbOfTiles;
     }
 
@@ -149,12 +170,13 @@ public class LevelsManager : MonoBehaviour
             item.SetActive(false);*//*
         }*/
 
-
+ 
         ctlt.LoadCorpso();
     }
 
     
 
+    //Enleve les espace et les entrées dans la string représentant le niveau
     public static string RemoveSpecialCharacters(string str)
     {
         char[] buffer = new char[str.Length];

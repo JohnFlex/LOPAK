@@ -14,6 +14,8 @@ public class CorpsoToLevelsTransition : MonoBehaviour
     [SerializeField]
     GameObject corpsoCanvas;
 
+
+    //On intialise divers type de variable au moment où le niveau se chargera
     public void LoadLevel(int levelID)
     {
         FadeOut.FADE_OUT_ELEMENT.FadeToBlack(1f);
@@ -26,6 +28,8 @@ public class CorpsoToLevelsTransition : MonoBehaviour
         FadeOut.FADE_OUT_ELEMENT.FadeFromBlack(1f);
         cam.transform.localPosition = new Vector3(0, 0, -10);
     }
+
+    //On initialise certaines variables au moment où le corps se génère
     public void LoadCorpso()
     {
         FadeOut.FADE_OUT_ELEMENT.FadeToBlack(1f);
@@ -33,32 +37,6 @@ public class CorpsoToLevelsTransition : MonoBehaviour
         gameManager.SetActive(false);
         corpsoCanvas.SetActive(true);
         FadeOut.FADE_OUT_ELEMENT.FadeFromBlack(1f);
-
-        /*if (percentage == 100)
-        {
-
-        }
-        else
-        {
-            if (percentage > 90)
-            {
-
-            }
-            else
-            {
-                if (percentage > 75)
-                {
-
-                }
-                else
-                {
-                    if (percentage > 5)
-                    {
-                        levelArrows[levelNumber].GetComponent<Image>().color = new Color(176, 102, 0);
-                    }
-                }
-            }
-        }*/
     }
     
 }

@@ -11,14 +11,12 @@ public class LevelPercentageCompletion : MonoBehaviour
 
     void Start()
     {
-        
         colorsOnTriggerAvailable = new List<ChangeColorOnTrigger>();
         foreach (ChangeColorOnTrigger item in FindObjectsOfType<ChangeColorOnTrigger>())
         {
             if (item.passStatus == ChangeColorOnTrigger.PassStatus.available)
             {
                 colorsOnTriggerAvailable.Add(item);
-                
             }
         }
     }
