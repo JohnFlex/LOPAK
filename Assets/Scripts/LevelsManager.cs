@@ -57,7 +57,7 @@ public class LevelsManager : MonoBehaviour
     {
         //TIMER
         timeRemaining -= Time.deltaTime;
-        timeText.SetText("Time : " + System.Math.Round(timeRemaining, 0));
+        timeText.SetText("Time : \n" + System.Math.Round(timeRemaining, 0));
 
         if ((nbOfTiles <= 0 || timeRemaining <= 0) && isGenerated)
         {
