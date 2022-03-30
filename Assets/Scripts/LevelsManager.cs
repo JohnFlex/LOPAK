@@ -75,19 +75,19 @@ public class LevelsManager : MonoBehaviour
             }
             else
             {
-                if (percentage > 90)
+                if (percentage >= 90)
                 {
                     levelArrows[levelNumber].GetComponent<Image>().color = new Color32(255, 255, 0, 255);
                 }
                 else
                 {
-                    if (percentage > 75)
+                    if (percentage >= 75)
                     {
                         levelArrows[levelNumber].GetComponent<Image>().color = new Color32(125, 255, 215, 255);
                     }
                     else
                     {
-                        if (percentage > 50)
+                        if (percentage >= 50)
                         {
                             levelArrows[levelNumber].GetComponent<Image>().color = new Color32(185, 75, 3, 255);
                         }
